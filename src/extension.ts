@@ -47,14 +47,18 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 async function openMarkdownPreview(uri: vscode.Uri) {
-    // 左側にマークダウンエディターを開く
-    await vscode.window.showTextDocument(uri, {
+    // 左側にマークダウンエディターを開く（プレビューモードで軽量に）
+    const editor = await vscode.window.showTextDocument(uri, {
         viewColumn: vscode.ViewColumn.One,
+        preview: true,
         preserveFocus: false
     });
 
+    // エディターのレンダリングが完了するまで少し待つ
+    await new Promise(resolve => setTimeout(resolve, 50));
+
     // 右側にプレビューを開く
-    await vscode.commands.executeCommand('markdown.showPreviewToSide');
+    await vscode.commands.executeCommand('markdown.showPreviewToSide', uri);
 }
 
 async function deletePlan(planItem: any) {
