@@ -71,14 +71,41 @@ async function deletePlan(planItem: any) {
 }
 
 async function searchPlans(planProvider: PlanProvider) {
-    const query = await vscode.window.showInputBox({
-        prompt: 'Search plans by title or content',
-        placeHolder: 'Enter search query...'
+    const inputBox = vscode.window.createInputBox();
+    inputBox.placeholder = 'Search plans by title or filename...';
+    inputBox.prompt = 'Type to filter plans';
+
+    // クリアボタンを追加
+    const clearButton: vscode.QuickInputButton = {
+        iconPath: new vscode.ThemeIcon('close'),
+        tooltip: 'Clear filter'
+    };
+    inputBox.buttons = [clearButton];
+
+    // リアルタイム検索：入力するたびにフィルタリング
+    inputBox.onDidChangeValue((value) => {
+        planProvider.setFilter(value);
     });
 
-    if (query) {
-        planProvider.setFilter(query);
-    }
+    // クリアボタンがクリックされたとき
+    inputBox.onDidTriggerButton((button) => {
+        if (button === clearButton) {
+            inputBox.value = '';
+            planProvider.setFilter('');
+        }
+    });
+
+    // Enterキーで閉じる
+    inputBox.onDidAccept(() => {
+        inputBox.hide();
+    });
+
+    // 閉じられたときの処理
+    inputBox.onDidHide(() => {
+        inputBox.dispose();
+    });
+
+    inputBox.show();
 }
 
 export function deactivate() {}
