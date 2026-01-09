@@ -1,0 +1,94 @@
+{
+  "name": "claude-plan-review",
+  "displayName": "Claude Plans Reviewer",
+  "description": "Review and manage Claude Code planning documents",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "claude-plans",
+          "title": "Claude Plans",
+          "icon": "$(file-text)"
+        }
+      ]
+    },
+    "views": {
+      "claude-plans": [
+        {
+          "id": "claudePlansExplorer",
+          "name": "Plans Explorer"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "claudePlans.refresh",
+        "title": "Refresh Plans",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "claudePlans.openPreview",
+        "title": "Open Preview"
+      },
+      {
+        "command": "claudePlans.delete",
+        "title": "Delete Plan",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "claudePlans.search",
+        "title": "Search Plans",
+        "icon": "$(search)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "claudePlans.refresh",
+          "when": "view == claudePlansExplorer",
+          "group": "navigation"
+        },
+        {
+          "command": "claudePlans.search",
+          "when": "view == claudePlansExplorer",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "claudePlans.openPreview",
+          "when": "view == claudePlansExplorer && viewItem == plan"
+        },
+        {
+          "command": "claudePlans.delete",
+          "when": "view == claudePlansExplorer && viewItem == plan",
+          "group": "inline"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "oxlint src",
+    "format": "oxlint --fix src"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "@types/vscode": "^1.108.0",
+    "oxlint": "^1.38.0",
+    "typescript": "^5.9.3"
+  }
+}
