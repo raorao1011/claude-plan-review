@@ -1,18 +1,25 @@
 import * as vscode from 'vscode';
+import { formatRelativeTime, categorizePlan } from './utils/dateUtils';
+import { PlanGroup } from './planGroupItem';
 
 export class PlanItem extends vscode.TreeItem {
+    public readonly group: PlanGroup;
+
     constructor(
         public readonly label: string,
         public readonly fileName: string,
         public readonly resourceUri: vscode.Uri,
         public readonly createdDate: Date,
+        public readonly lastModified: Date,
         public readonly collapsibleState: vscode.TreeItemCollapsibleState
     ) {
         super(label, collapsibleState);
 
+        this.group = categorizePlan(createdDate, lastModified);
         this.tooltip = this.generateTooltip();
-        this.description = this.formatDate(createdDate);
+        this.description = formatRelativeTime(lastModified);
         this.contextValue = 'plan';
+        this.iconPath = this.getIconForGroup();
 
         // クリック時の動作
         this.command = {
@@ -23,22 +30,17 @@ export class PlanItem extends vscode.TreeItem {
     }
 
     private generateTooltip(): string {
-        return `${this.label}\n\nFile: ${this.fileName}\nCreated: ${this.createdDate.toLocaleString()}`;
+        return `${this.label}\n\nFile: ${this.fileName}\nCreated: ${this.createdDate.toLocaleString()}\nLast Modified: ${this.lastModified.toLocaleString()}`;
     }
 
-    private formatDate(date: Date): string {
-        const now = new Date();
-        const diffMs = now.getTime() - date.getTime();
-        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-        if (diffDays === 0) {
-            return 'Today';
-        } else if (diffDays === 1) {
-            return 'Yesterday';
-        } else if (diffDays < 7) {
-            return `${diffDays} days ago`;
-        } else {
-            return date.toLocaleDateString();
+    private getIconForGroup(): vscode.ThemeIcon {
+        switch (this.group) {
+            case 'today':
+                return new vscode.ThemeIcon('circle-filled', new vscode.ThemeColor('charts.green'));
+            case 'thisWeek':
+                return new vscode.ThemeIcon('circle-outline', new vscode.ThemeColor('charts.blue'));
+            case 'older':
+                return new vscode.ThemeIcon('circle-slash', new vscode.ThemeColor('editorLineNumber.foreground'));
         }
     }
 }
