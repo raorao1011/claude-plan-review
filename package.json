@@ -9,7 +9,7 @@
   },
   "license": "MIT",
   "engines": {
-    "vscode": "^1.108.0"
+    "vscode": "^1.107.0"
   },
   "categories": [
     "Other"
@@ -108,7 +108,7 @@
   },
   "devDependencies": {
     "@types/node": "^25.0.3",
-    "@types/vscode": "^1.108.0",
+    "@types/vscode": "^1.107.0",
     "oxlint": "^1.38.0",
     "typescript": "^5.9.3"
   }
