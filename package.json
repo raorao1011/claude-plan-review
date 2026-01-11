@@ -3,7 +3,7 @@
   "displayName": "Claude Plans Reviewer",
   "description": "Review and manage Claude Code planning documents",
   "version": "0.1.0",
-  "publisher": "YOUR-PUBLISHER-ID",
+  "publisher": "raorao1011",
   "author": {
     "name": "Tagawa Yuki"
   },
@@ -24,12 +24,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR-USERNAME/claude-plan-review.git"
+    "url": "https://github.com/raorao1011/claude-plan-review.git"
   },
   "bugs": {
-    "url": "https://github.com/YOUR-USERNAME/claude-plan-review/issues"
+    "url": "https://github.com/raorao1011/claude-plan-review/issues"
   },
-  "homepage": "https://github.com/YOUR-USERNAME/claude-plan-review#readme",
+  "homepage": "https://github.com/raorao1011/claude-plan-review#readme",
   "activationEvents": [
     "onStartupFinished"
   ],
