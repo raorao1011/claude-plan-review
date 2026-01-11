@@ -3,12 +3,33 @@
   "displayName": "Claude Plans Reviewer",
   "description": "Review and manage Claude Code planning documents",
   "version": "0.1.0",
+  "publisher": "YOUR-PUBLISHER-ID",
+  "author": {
+    "name": "Tagawa Yuki"
+  },
+  "license": "MIT",
   "engines": {
     "vscode": "^1.85.0"
   },
   "categories": [
     "Other"
   ],
+  "keywords": [
+    "claude",
+    "claude-code",
+    "plans",
+    "markdown",
+    "review",
+    "ai"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR-USERNAME/claude-plan-review.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YOUR-USERNAME/claude-plan-review/issues"
+  },
+  "homepage": "https://github.com/YOUR-USERNAME/claude-plan-review#readme",
   "activationEvents": [
     "onStartupFinished"
   ],

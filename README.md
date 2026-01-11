@@ -40,4 +40,4 @@ VSCode拡張機能で、Claude Codeの`~/.claude/plans`ディレクトリ内の�
 
 ## ライセンス
 
-ISC
+MIT
