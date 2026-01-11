@@ -7,3 +7,5 @@ src/**
 **/*.ts
 tsconfig.json
 node_modules/**
+.claude/**
+.DS_Store
